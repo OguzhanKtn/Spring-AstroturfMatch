@@ -1,11 +1,12 @@
 package com.vize_2.configs;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -33,11 +34,4 @@ public class GlobalException {
         return new ResponseEntity(hm, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity constraintViolation(){
-        String message = "This player is already exist !";
-        Map<String,String> hm = new LinkedHashMap<>();
-        hm.put("error",message);
-        return new ResponseEntity(hm, HttpStatus.BAD_REQUEST);
-    }
 }

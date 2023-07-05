@@ -21,6 +21,10 @@ public class FootBallerService {
         String chipherText = tinkEncDec.encrypt(footballer.getPassword());
         footballer.setPassword(chipherText);
         try {
+            if(repository.existsByEmailEquals(footballer.getEmail())){
+                Rest rest = new Rest(false, "This email is already exist !");
+                return new ResponseEntity(rest, HttpStatus.BAD_REQUEST);
+            }
             repository.save(footballer);
             Rest rest = new Rest(true, footballer);
             return new ResponseEntity(rest, HttpStatus.OK);
